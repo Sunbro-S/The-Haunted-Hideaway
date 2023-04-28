@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -18,6 +19,8 @@ public class Game1 : Game
     private GameState state = GameState.Menu;
     private Hero hero;
     private Container container;
+    private Ghost ghost;
+    private List<Ghost> _ghosts;
 
     public Game1()
     {
@@ -41,7 +44,10 @@ public class Game1 : Game
         spriteBatch = new SpriteBatch(GraphicsDevice);
         player = Content.Load<Texture2D>("PlayerDemo");
         SplashScreen.Background = Content.Load<Texture2D>("background");
-        hero = new Hero(Content.Load<Texture2D>("playerDemo"), new Rectangle(30,container.Height.X2/2,30,30));
+        hero = new Hero(Content.Load<Texture2D>("playerDemo"), new Rectangle(30,container.Height.X2/2,30,30),100);
+        ghost = new Ghost(Content.Load<Texture2D>("ghost"),
+            new Vector2(graphics.PreferredBackBufferWidth - 10, container.Height.X2 / 2), 2, 50, 30);
+        _ghosts.Add(ghost);
         // TODO: use this.Content to load your game content here
     }
 

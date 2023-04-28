@@ -6,15 +6,17 @@ namespace The_Haunted_Hideaway;
 
 public class Hero
 {
-     public Texture2D Texture { get; }
-     public static Direction Direction { get; set; }
+     private Texture2D Texture { get; }
+     private static Direction Direction { get; set; }
      private Rectangle _rectangle;
-     public Rectangle Rectangle { get; set; }
+     private Rectangle Rectangle { get; set; }
+     private static int _health;
 
-     public Hero(Texture2D texture, Rectangle rectangle)
+     public Hero(Texture2D texture, Rectangle rectangle, int health)
      {
           Texture = texture;
           _rectangle = rectangle;
+          _health = health;
      }
 
      public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -73,5 +75,16 @@ public class Hero
           if (_rectangle.X > 0 && _rectangle.X < width && _rectangle.Y > 0 && _rectangle.Y < height)
                return true;
           return false;
+     }
+     
+     public static void TakeDamage(int amount)
+     {
+          _health -= amount;
+
+          if (_health <= 0)
+          {
+               // Player is dead
+               // TODO: Add code to handle player death
+          }
      }
 }
