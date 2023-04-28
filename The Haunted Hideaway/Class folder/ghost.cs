@@ -1,6 +1,6 @@
 namespace The_Haunted_Hideaway;
 
-public class Hero
+public class ghost
 {
     
 }
