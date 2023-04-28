@@ -46,15 +46,15 @@ public class Game1 : Game
         SplashScreen.Background = Content.Load<Texture2D>("background");
         hero = new Hero(Content.Load<Texture2D>("playerDemo"), new Rectangle(30,container.Height.X2/2,30,30),100);
         ghost = new Ghost(Content.Load<Texture2D>("ghost"),
-            new Vector2(graphics.PreferredBackBufferWidth - 10, container.Height.X2 / 2), 2, 50, 30);
-        _ghosts.Add(ghost);
+        new Vector2(graphics.PreferredBackBufferWidth - 100, container.Height.X2 / 2), 50, 300, 30);
+        //_ghosts.Add(ghost);
         // TODO: use this.Content to load your game content here
     }
 
     protected override void Update(GameTime gameTime)
     {
         hero.Move(2);
-        
+        ghost.Update(gameTime,hero.position());
         switch (state)
         {
             case GameState.Menu:
@@ -83,6 +83,7 @@ public class Game1 : Game
         spriteBatch.Begin();
         SplashScreen.Draw(spriteBatch);
         hero.Draw(gameTime, spriteBatch);
+        ghost.Draw(spriteBatch);
         spriteBatch.End(); 
 
         // TODO: Add your drawing code here

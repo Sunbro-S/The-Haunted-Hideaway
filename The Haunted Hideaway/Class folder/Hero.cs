@@ -19,6 +19,11 @@ public class Hero
           _health = health;
      }
 
+     public Vector2 position()
+     {
+          return new Vector2(_rectangle.X, _rectangle.Y);
+     }
+
      public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
      {
           spriteBatch.Draw(Texture, _rectangle, Color.White);

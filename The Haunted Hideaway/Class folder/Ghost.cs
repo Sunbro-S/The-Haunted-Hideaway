@@ -42,13 +42,13 @@ public class Ghost
             Hero.TakeDamage(damage);
 
             // Destroy the ghost
-            Dispose(ghostRect);
+            //Dispose(ghostRect);
         }
     }
 
     public void Dispose(Ghost ghost)
     {
-        _ghosts.Remove(ghost);
+       // _ghosts.Remove(ghost);
     }
 
     // Draw the ghost
