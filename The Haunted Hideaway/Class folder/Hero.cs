@@ -24,7 +24,7 @@ public class Hero
           return new Vector2(_rectangle.X, _rectangle.Y);
      }
 
-     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+     public void Draw(SpriteBatch spriteBatch)
      {
           spriteBatch.Draw(Texture, _rectangle, Color.White);
      }
@@ -85,11 +85,25 @@ public class Hero
      public static void TakeDamage(int amount)
      {
           _health -= amount;
-
+          var flag = true;
           if (_health <= 0)
           {
-               // Player is dead
-               // TODO: Add code to handle player death
+               IsDead(flag);
           }
+     }
+     
+     public static bool IsDead(bool flag)
+     {
+          return flag = false;
+     }
+
+     public static bool HideInShadow()
+     {
+          if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
+          {
+               return true;
+          }
+
+          return false;
      }
 }

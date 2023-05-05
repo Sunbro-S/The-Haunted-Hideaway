@@ -6,15 +6,13 @@ using The_Haunted_Hideaway;
 
 public class Ghost
 {
-    // Fields
     private Texture2D texture;
     private Vector2 position;
     private Vector2 direction;
     private float speed;
     private float radius;
     private int damage;
-
-    // Constructor
+    
     public Ghost(Texture2D texture, Vector2 position, float speed, float radius, int damage)
     {
         this.texture = texture;
@@ -23,35 +21,30 @@ public class Ghost
         this.radius = radius;
         this.damage = damage;
     }
-
-    // Update the ghost position
+    
     public void Update(GameTime gameTime, Vector2 playerPosition)
     {
         var directionToPlayer = playerPosition - position;
         var distanceToPlayer = directionToPlayer.Length();
-        var ghostRect = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
-        var playerRect = new Rectangle((int)playerPosition.X, (int)playerPosition.Y, 30, 30);
-        if (distanceToPlayer < radius)
+        if (distanceToPlayer < radius && !Hero.HideInShadow())
         {
             direction = Vector2.Normalize(directionToPlayer);
             position += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
-        if (ghostRect.Intersects(playerRect))
-        {
-            // Inflict damage to the player
-            Hero.TakeDamage(damage);
 
-            // Destroy the ghost
-            //Dispose(ghostRect);
+        if (IsIntersect(playerPosition))
+        {
+            
         }
     }
 
-    public void Dispose(Ghost ghost)
+    public bool IsIntersect(Vector2 playerPosition )
     {
-       // _ghosts.Remove(ghost);
+        var ghost = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
+        var player = new Rectangle((int)playerPosition.X, (int)playerPosition.Y, 30, 30);
+        return ghost.Intersects(player);
     }
-
-    // Draw the ghost
+    
     public void Draw(SpriteBatch spriteBatch)
     {
         spriteBatch.Draw(texture, position, Color.White);
