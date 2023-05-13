@@ -1,0 +1,59 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
+        ":/automap-tiles.tsx": {
+            "scaleInDock": 1
+        },
+        "Map_Example.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tileset_Large.tsx": {
+            "scaleInDock": 1.5,
+            "scaleInEditor": 2
+        },
+        "first map.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 596.6666666666666,
+                "y": 681.3333333333333
+            }
+        }
+    },
+    "last.externalTilesetPath": "C:/Users/user/Desktop/c# hueta/The Haunted Hideaway/Tiled/Package",
+    "last.imagePath": "C:/Users/user/Desktop/c# hueta/The Haunted Hideaway/Tiled/Package",
+    "map.height": 100,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 100,
+    "openFiles": [
+        "first map.tmx",
+        "Tileset_Large.tsx",
+        "Map_Example.tsx",
+        "first map.tmx"
+    ],
+    "project": "Map.tiled-project",
+    "recentFiles": [
+        "first map.tmx",
+        "Tileset_Large.tsx",
+        "Map_Example.tsx"
+    ],
+    "tileset.lastUsedFilter": "Все файлы (*)",
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}

@@ -21,10 +21,7 @@ public class Game1 : Game
     private Container container;
     private Ghost ghost;
     private List<Ghost> ghosts;
-    private QTE qte;
-    private bool _qteActive;
-    private int _qteTimer;
-    private const int QTE_TIMER_MAX = 60;
+    
 
     public Game1()
     {
@@ -46,40 +43,18 @@ public class Game1 : Game
     protected override void LoadContent()
     {
         spriteBatch = new SpriteBatch(GraphicsDevice);
-        player = Content.Load<Texture2D>("PlayerDemo");
         SplashScreen.Background = Content.Load<Texture2D>("background");
         hero = new Hero(Content.Load<Texture2D>("playerDemo"), new Rectangle(30,container.Height.X2/2,30,30),100);
         ghost = new Ghost(Content.Load<Texture2D>("ghost"),
         new Vector2(graphics.PreferredBackBufferWidth - 100, container.Height.X2 / 2), 50, 300, 30);
         ghosts = new List<Ghost>();
         ghosts.Add(ghost);
-        // qte = new QTE(new List<Keys> { Keys.W, Keys.A, Keys.S, Keys.D });
         // TODO: use this.Content to load your game content here
     }
 
     protected override void Update(GameTime gameTime)
     {
-        hero.Move(2);
-        GhostsManager.Update(ghosts,gameTime,hero.position());
-        // qte.Update();
-        switch (state)
-        {
-            case GameState.Menu:
-                SplashScreen.Update();
-                if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
-                if (Keyboard.GetState().IsKeyDown(Keys.Enter)) state = GameState.Game;
-                break;
-            case GameState.Game:
-                SplashScreen.Update();
-                if (Keyboard.GetState().IsKeyDown(Keys.Escape)) state = GameState.Game;
-                if (Keyboard.GetState().IsKeyDown(Keys.P)) state = GameState.Pause;
-                break;
-            case GameState.Pause:
-                if (Keyboard.GetState().IsKeyDown(Keys.Escape) || Keyboard.GetState().IsKeyDown(Keys.P))
-                    state = GameState.Game;
-                break;
-        }
-
+       LoaderContent.Update(gameTime, hero, ghosts, state);
         // TODO: Add your update logic here
         base.Update(gameTime);
     }
@@ -88,9 +63,7 @@ public class Game1 : Game
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
         spriteBatch.Begin();
-        SplashScreen.Draw(spriteBatch);
-        hero.Draw(spriteBatch);
-        GhostsManager.Draw(ghosts,hero,spriteBatch);
+        LoaderContent.Draw(spriteBatch,hero,ghosts);
         spriteBatch.End(); 
 
         // TODO: Add your drawing code here
