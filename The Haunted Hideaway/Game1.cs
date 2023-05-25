@@ -36,6 +36,10 @@ public class Game1 : Game
 
     protected override void Initialize()
     {
+        Globals.Content = Content;
+        Globals.Window = Window;
+        Globals.Graphics = graphics;
+        Globals.Container = container;
         // TODO: Add your initialization logic here
         base.Initialize();
     }
@@ -43,18 +47,15 @@ public class Game1 : Game
     protected override void LoadContent()
     {
         spriteBatch = new SpriteBatch(GraphicsDevice);
-        SplashScreen.Background = Content.Load<Texture2D>("background");
-        hero = new Hero(Content.Load<Texture2D>("playerDemo"), new Rectangle(30,container.Height.X2/2,30,30),100);
-        ghost = new Ghost(Content.Load<Texture2D>("ghost"),
-        new Vector2(graphics.PreferredBackBufferWidth - 100, container.Height.X2 / 2), 50, 300, 30);
-        ghosts = new List<Ghost>();
-        ghosts.Add(ghost);
+        Globals.SpriteBatch = spriteBatch;
+        LoaderContent.LoadContent();
+
         // TODO: use this.Content to load your game content here
     }
 
     protected override void Update(GameTime gameTime)
     {
-       LoaderContent.Update(gameTime, hero, ghosts, state);
+       LoaderContent.Update(gameTime, state);
         // TODO: Add your update logic here
         base.Update(gameTime);
     }
@@ -62,9 +63,7 @@ public class Game1 : Game
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
-        spriteBatch.Begin();
-        LoaderContent.Draw(spriteBatch,hero,ghosts);
-        spriteBatch.End(); 
+        LoaderContent.Draw();
 
         // TODO: Add your drawing code here
 

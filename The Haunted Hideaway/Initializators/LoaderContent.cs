@@ -8,8 +8,22 @@ namespace The_Haunted_Hideaway;
 
 public class LoaderContent
 {
-    
-    public static void Update(GameTime gameTime, Hero hero, List<Ghost> ghosts, GameState state)
+    private static Hero hero;
+    private static Container container;
+    private static Ghost ghost;
+    private static List<Ghost> ghosts;
+    private static Texture2D player;
+
+    public static void LoadContent()
+    {
+        SplashScreen.Background = Globals.Content.Load<Texture2D>("background");
+        hero = new Hero(Globals.Content.Load<Texture2D>("playerDemo"), new Rectangle(30,Globals.Container.Height.X2/2,30,30),100);
+        ghost = new Ghost(Globals.Content.Load<Texture2D>("ghost"),
+            new Vector2(Globals.Graphics.PreferredBackBufferWidth - 100, Globals.Container.Height.X2 / 2), 50, 300, 30);
+        ghosts = new List<Ghost>();
+        ghosts.Add(ghost);
+    }
+    public static void Update(GameTime gameTime, GameState state)
     {
         hero.Move(2);
         GhostsManager.Update(ghosts,gameTime,hero);
@@ -31,10 +45,12 @@ public class LoaderContent
         }
     }
 
-    public static void Draw(SpriteBatch spriteBatch, Hero hero, List<Ghost> ghosts)
+    public static void Draw()
     {
-        SplashScreen.Draw(spriteBatch);
-        hero.Draw(spriteBatch);
-        GhostsManager.Draw(ghosts,hero,spriteBatch);
+        Globals.SpriteBatch.Begin();
+        SplashScreen.Draw(Globals.SpriteBatch);
+        hero.Draw(Globals.SpriteBatch);
+        GhostsManager.Draw(ghosts,hero,Globals.SpriteBatch);
+        Globals.SpriteBatch.End();
     }
 }
