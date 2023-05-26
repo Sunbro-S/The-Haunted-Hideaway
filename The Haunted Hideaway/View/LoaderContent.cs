@@ -18,22 +18,27 @@ public class LoaderContent
     public static void LoadContent()
     {
         SplashScreen.Background = Globals.Content.Load<Texture2D>("background");
-        hero = new Hero(Globals.Content.Load<Texture2D>("playerDemo"), new Rectangle(30,Globals.Container.Height.X2/2,30,30),100);
+        hero = new Hero(Globals.Content.Load<Texture2D>("playerDemo"), new Rectangle(128,257,64,64),100);
         ghost = new Ghost(Globals.Content.Load<Texture2D>("ghost"),
-            new Vector2(Globals.Graphics.PreferredBackBufferWidth - 100, Globals.Container.Height.X2 / 2), 50, 300, 30);
+            new Vector2(Globals.Graphics.PreferredBackBufferWidth - 100, Globals.Container.Height.X2 / 2), 100, 300, 30);
         ghosts = new List<Ghost>();
         ghosts.Add(ghost);
         
         Map.Generate(new int[,]
         {
-            {1,1,1,1,1},
-            {1,1,1,1,1},
-            {1,1,1,1,1}
+            {7,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,9},
+            {6,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,10},
+            {5,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,11},
+            {4,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,12},
+            {4,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,12},
+            {4,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,12},
+            {3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,17,2,2,2,2,16,2,13}
         },64);
     }
     public static void Update(GameTime gameTime, GameState state)
     {
-        hero.Move(2);
+        hero.Move(3, Map);
+
         GhostsManager.Update(ghosts,gameTime,hero);
         switch (state)
         {
@@ -56,7 +61,7 @@ public class LoaderContent
     public static void Draw()
     {
         Globals.SpriteBatch.Begin();
-        //SplashScreen.Draw(Globals.SpriteBatch);
+        SplashScreen.Draw(Globals.SpriteBatch);
         Map.Draw(Globals.SpriteBatch);
         hero.Draw(Globals.SpriteBatch);
         GhostsManager.Draw(ghosts,hero,Globals.SpriteBatch);

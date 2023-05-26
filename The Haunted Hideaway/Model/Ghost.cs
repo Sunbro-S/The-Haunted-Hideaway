@@ -40,8 +40,8 @@ public class Ghost
 
     public bool IsIntersect(Vector2 playerPosition )
     {
-        var ghost = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
-        var player = new Rectangle((int)playerPosition.X, (int)playerPosition.Y, 30, 30);
+        var ghost = new Rectangle((int)position.X, (int)position.Y, 64, 64);
+        var player = new Rectangle((int)playerPosition.X, (int)playerPosition.Y, 64, 64);
         return ghost.Intersects(player);
     }
     
