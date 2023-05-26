@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using The_Haunted_Hideaway.Map;
 
 namespace The_Haunted_Hideaway;
 
@@ -18,7 +19,7 @@ public class Game1 : Game
     private GameState state = GameState.Menu;
     private Container container;
     private Map.Map map;
-    
+
 
     public Game1()
     {
@@ -40,6 +41,7 @@ public class Game1 : Game
         Tiles.Content = Content;
         map = new Map.Map();
         LoaderContent.Map = map;
+        LoaderContent.Viewport = GraphicsDevice.Viewport;
         // TODO: Add your initialization logic here
         base.Initialize();
     }
@@ -61,7 +63,7 @@ public class Game1 : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
+        GraphicsDevice.Clear(Color.Gray);
         LoaderContent.Draw();
 
         // TODO: Add your drawing code here

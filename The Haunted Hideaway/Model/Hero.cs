@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using The_Haunted_Hideaway.Map;
 
 namespace The_Haunted_Hideaway;
 
@@ -10,7 +11,7 @@ public class Hero
      private static Direction Direction { get; set; }
      private Rectangle rectangle;
      public Vector2 Velocity;
-
+     public Camera Camera { get; set; }
      private static int _health;
 
      public Hero(Texture2D texture, Rectangle rectangle, int health)
@@ -25,11 +26,6 @@ public class Hero
           return new Vector2(rectangle.X, rectangle.Y);
      }
      
-     public Vector2 Position
-     {
-          get => new Vector2(rectangle.X, rectangle.Y);
-          set => rectangle.Location = new Point((int)value.X, (int)value.Y);
-     }
 
 
      public void Draw(SpriteBatch spriteBatch)
@@ -39,24 +35,6 @@ public class Hero
 
      public void Update(GameTime gameTime)
      {
-          
-     }
-
-     public void CheckCollision(CollisionTiles tile)
-     {
-          if (rectangle.Intersects(tile.Rectangle) && tile.Type != 1)
-          {
-               var previusPos = position()-Velocity;
-                
-               if (previusPos.X + 16 <= tile.Rectangle.Left)
-                    rectangle.X = tile.Rectangle.Left - 16;
-               else if (previusPos.X >= tile.Rectangle.Right)
-                    rectangle.X = tile.Rectangle.Right;
-               else if (previusPos.Y + rectangle.Height <= tile.Rectangle.Top)
-                    rectangle.Y = tile.Rectangle.Top - rectangle.Height;
-               else if (previusPos.Y >= tile.Rectangle.Bottom)
-                    rectangle.Y = tile.Rectangle.Bottom;
-          }
           
      }
      
@@ -86,16 +64,17 @@ public class Hero
 
           foreach (var tile in map.CollisionTilesList)
           {
+               Camera.Update();
                if (tempRectangle.Intersects(tile.Rectangle) && tile.Type != 1)
                {
                     collisionDetected = true;
                     break;
                }
+               
           }
           if (!collisionDetected)
-          {
                rectangle.Location = newPosition;
-          }
+          
      }
 
      public void Move(int speed, Map.Map map)

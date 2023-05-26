@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 
@@ -6,42 +7,23 @@ namespace The_Haunted_Hideaway.Map;
 
 public class Camera
 {
-    private Vector2 _cameraPosition;
-    private Vector2 GetMovementDirection()
+    public Matrix Transform { get; set; }
+    private Viewport Viewport;
+    private Hero player; // Добавлено: ссылка на игрока
+
+    public Camera(Viewport viewport, Hero player)
     {
-        var movementDirection = Vector2.Zero;
-        var state = Keyboard.GetState();
-        if (state.IsKeyDown(Keys.Down))
-        {
-            movementDirection += Vector2.UnitY;
-        }
-        if (state.IsKeyDown(Keys.Up))
-        {
-            movementDirection -= Vector2.UnitY;
-        }
-        if (state.IsKeyDown(Keys.Left))
-        {
-            movementDirection -= Vector2.UnitX;
-        }
-        if (state.IsKeyDown(Keys.Right))
-        {
-            movementDirection += Vector2.UnitX;
-        }
-    
-        // Can't normalize the zero vector so test for it before normalizing
-        if (movementDirection != Vector2.Zero)
-        {
-            movementDirection.Normalize(); 
-        }
-    
-        return movementDirection;
+        Viewport = viewport;
+        this.player = player;
     }
 
-    private void MoveCamera(GameTime gameTime)
+    public void Update()
     {
-        var speed = 200;
-        var seconds = gameTime.GetElapsedSeconds();
-        var movementDirection = GetMovementDirection();
-        _cameraPosition += speed * movementDirection * seconds;
+        var position = player.position();
+
+        var cameraPosition = new Vector2(Viewport.Width / 2, Viewport.Height / 2);
+        var playerOffset = position - cameraPosition;
+
+        Transform = Matrix.CreateTranslation(-playerOffset.X, -playerOffset.Y, 0);
     }
 }

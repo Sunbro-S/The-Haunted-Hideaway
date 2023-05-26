@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended;
+using The_Haunted_Hideaway.Map;
 
 namespace The_Haunted_Hideaway;
 
@@ -13,6 +15,9 @@ public class LoaderContent
     private static Ghost ghost;
     private static List<Ghost> ghosts;
     private static Texture2D player;
+    private static Camera Camera;
+
+    public static Viewport Viewport;
     public static Map.Map Map { get; set; }
 
     public static void LoadContent()
@@ -23,7 +28,8 @@ public class LoaderContent
             new Vector2(Globals.Graphics.PreferredBackBufferWidth - 100, Globals.Container.Height.X2 / 2), 100, 300, 30);
         ghosts = new List<Ghost>();
         ghosts.Add(ghost);
-        
+        Camera = new Camera(Viewport, hero);
+        hero.Camera = Camera;
         Map.Generate(new int[,]
         {
             {7,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,9},
@@ -32,7 +38,8 @@ public class LoaderContent
             {4,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,12},
             {4,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,12},
             {4,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,12},
-            {3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,17,2,2,2,2,16,2,13}
+            {3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,17,1,1,1,1,16,2,13},
+            
         },64);
     }
     public static void Update(GameTime gameTime, GameState state)
@@ -60,8 +67,9 @@ public class LoaderContent
 
     public static void Draw()
     {
-        Globals.SpriteBatch.Begin();
-        SplashScreen.Draw(Globals.SpriteBatch);
+        Globals.SpriteBatch.Begin(SpriteSortMode.Deferred,BlendState.AlphaBlend,
+            null,null,null,null,
+            Camera.Transform);
         Map.Draw(Globals.SpriteBatch);
         hero.Draw(Globals.SpriteBatch);
         GhostsManager.Draw(ghosts,hero,Globals.SpriteBatch);
