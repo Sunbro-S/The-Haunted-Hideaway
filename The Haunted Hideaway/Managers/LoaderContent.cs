@@ -23,8 +23,9 @@ public class LoaderContent
     public static void LoadContent()
     {
         SplashScreen.Background = Globals.Content.Load<Texture2D>("background");
-        hero = new Hero(Globals.Content.Load<Texture2D>("playerDemo"), new Rectangle(128,257,64,64),100);
-        ghost = new Ghost(Globals.Content.Load<Texture2D>("ghost"),
+        hero = new Hero(LoadTexture("heroDown"),LoadTexture("heroUp"),LoadTexture("heroLeft"), LoadTexture("heroRight"),
+            new Rectangle(128,257,50,50),100);
+        ghost = new Ghost(LoadTexture("ghostDown"),LoadTexture("ghostUp"),LoadTexture("ghostLeft"),LoadTexture("ghostRight"),
             new Vector2(Globals.Graphics.PreferredBackBufferWidth - 100, Globals.Container.Height.X2 / 2), 100, 300, 30);
         ghosts = new List<Ghost>();
         ghosts.Add(ghost);
@@ -42,9 +43,13 @@ public class LoaderContent
             
         },64);
     }
+
+    private static Texture2D LoadTexture(string name) => Globals.Content.Load<Texture2D>(name);
+    
     public static void Update(GameTime gameTime, GameState state)
     {
-        hero.Move(3, Map);
+        hero.Move( Map,gameTime);
+        hero.Update(gameTime);
 
         GhostsManager.Update(ghosts,gameTime,hero);
         switch (state)

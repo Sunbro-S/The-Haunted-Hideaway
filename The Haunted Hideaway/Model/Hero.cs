@@ -10,27 +10,34 @@ public class Hero
      private Texture2D Texture { get; }
      private static Direction Direction { get; set; }
      private Rectangle rectangle;
-     public Vector2 Velocity;
+     private readonly int speed = 2; 
      public Camera Camera { get; set; }
      private static int _health;
+     
+     private AnimationManager animationManager = new AnimationManager();
+     private Animation animationDown;
+     private Animation animationUp;
+     private Animation animationLeft;
+     private Animation animationRight;
 
-     public Hero(Texture2D texture, Rectangle rectangle, int health)
+     public Hero(Texture2D down, Texture2D up,Texture2D left,Texture2D right,Rectangle rectangle, int health)
      {
-          Texture = texture;
+          Texture = down;
           this.rectangle = rectangle;
           _health = health;
+          animationDown = new Animation(down, 4, 0.2f);
+          animationUp = new Animation(up, 4, 0.2f);
+          animationRight = new Animation(right, 4, 0.2f);
+          animationLeft = new Animation(left, 4, 0.2f);
      }
 
-     public Vector2 position()
-     {
-          return new Vector2(rectangle.X, rectangle.Y);
-     }
-     
+     public Vector2 position() => new Vector2(rectangle.X, rectangle.Y);
+
 
 
      public void Draw(SpriteBatch spriteBatch)
      {
-          spriteBatch.Draw(Texture, rectangle, Color.White);
+          animationManager.Draw(spriteBatch, position());
      }
 
      public void Update(GameTime gameTime)
@@ -39,23 +46,31 @@ public class Hero
      }
      
      
-     public void MoveDirection(int speed, Map.Map map)
+     public void MoveDirection( Map.Map map)
      {
           var newPosition = rectangle.Location;
 
           switch (Direction)
           {
                case Direction.Left:
+                    
                     newPosition.X -= speed;
+                    animationManager.PlayAnimation(animationLeft);
                     break;
                case Direction.Right:
+                    
                     newPosition.X += speed;
+                    animationManager.PlayAnimation(animationRight);
                     break;
                case Direction.Up:
+                    
                     newPosition.Y -= speed;
+                    animationManager.PlayAnimation(animationUp);
                     break;
                case Direction.Down:
+                    
                     newPosition.Y += speed;
+                    animationManager.PlayAnimation(animationDown);
                     break;
           }
           
@@ -77,37 +92,42 @@ public class Hero
           
      }
 
-     public void Move(int speed, Map.Map map)
+     public void Move(Map.Map map,GameTime gameTime)
      {
+          var isMoving = false;
+          
           if (Keyboard.GetState().IsKeyDown(Keys.A))
-               {
-                    Direction = Direction.Left;
-                    Velocity = new Vector2(-speed, Velocity.Y);
-                    MoveDirection(2, map);
-               }
+          {
+               Direction = Direction.Left;
+               isMoving = true;
+          }
+          else if (Keyboard.GetState().IsKeyDown(Keys.D))
+          {
+               Direction = Direction.Right;
+               isMoving = true;
+          }
 
-               if (Keyboard.GetState().IsKeyDown(Keys.D))
-               {
-                    Direction = Direction.Right;
-                    Velocity = new Vector2(speed, Velocity.Y);
-                    MoveDirection(2, map);
-               }
+          if (Keyboard.GetState().IsKeyDown(Keys.W))
+          {
+               Direction = Direction.Up;
+               isMoving = true;
+          }
+          else if (Keyboard.GetState().IsKeyDown(Keys.S))
+          {
+               Direction = Direction.Down;
+               isMoving = true;
+          }
 
-               if (Keyboard.GetState().IsKeyDown(Keys.W))
-               {
-                    Direction = Direction.Up;
-                    Velocity = new Vector2(Velocity.X, -speed);
-                    MoveDirection(2, map);
-               }
+          
+          if (isMoving)
+               MoveDirection(map);
+          
+          else
+               animationManager.Stop();
 
-               if (Keyboard.GetState().IsKeyDown(Keys.S))
-               {
-                    Direction = Direction.Down;
-                    Velocity = new Vector2(Velocity.X, speed);
-                    MoveDirection(2, map);
-               }
-               else Velocity = Vector2.Zero;
+          animationManager.Update(gameTime);
      }
+     
 
      public bool InBounds(int width, int height)
      {

@@ -12,4 +12,6 @@ public class Globals
     public static GraphicsDeviceManager Graphics { get; set; }
     public static Container Container { get; set; }
     
+    public static float TotalSeconds { get; set; }
+    
 }
