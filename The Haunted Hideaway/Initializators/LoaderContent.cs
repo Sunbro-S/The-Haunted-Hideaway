@@ -13,6 +13,7 @@ public class LoaderContent
     private static Ghost ghost;
     private static List<Ghost> ghosts;
     private static Texture2D player;
+    public static Map.Map Map { get; set; }
 
     public static void LoadContent()
     {
@@ -22,6 +23,13 @@ public class LoaderContent
             new Vector2(Globals.Graphics.PreferredBackBufferWidth - 100, Globals.Container.Height.X2 / 2), 50, 300, 30);
         ghosts = new List<Ghost>();
         ghosts.Add(ghost);
+        
+        Map.Generate(new int[,]
+        {
+            {1,1,1,1,1},
+            {1,1,1,1,1},
+            {1,1,1,1,1}
+        },64);
     }
     public static void Update(GameTime gameTime, GameState state)
     {
@@ -48,7 +56,8 @@ public class LoaderContent
     public static void Draw()
     {
         Globals.SpriteBatch.Begin();
-        SplashScreen.Draw(Globals.SpriteBatch);
+        //SplashScreen.Draw(Globals.SpriteBatch);
+        Map.Draw(Globals.SpriteBatch);
         hero.Draw(Globals.SpriteBatch);
         GhostsManager.Draw(ghosts,hero,Globals.SpriteBatch);
         Globals.SpriteBatch.End();

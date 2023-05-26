@@ -15,12 +15,9 @@ public class Game1 : Game
 {
     private GraphicsDeviceManager graphics;
     private SpriteBatch spriteBatch;
-    private Texture2D player;
     private GameState state = GameState.Menu;
-    private Hero hero;
     private Container container;
-    private Ghost ghost;
-    private List<Ghost> ghosts;
+    private Map.Map map;
     
 
     public Game1()
@@ -40,6 +37,9 @@ public class Game1 : Game
         Globals.Window = Window;
         Globals.Graphics = graphics;
         Globals.Container = container;
+        Tiles.Content = Content;
+        map = new Map.Map();
+        LoaderContent.Map = map;
         // TODO: Add your initialization logic here
         base.Initialize();
     }
@@ -49,7 +49,6 @@ public class Game1 : Game
         spriteBatch = new SpriteBatch(GraphicsDevice);
         Globals.SpriteBatch = spriteBatch;
         LoaderContent.LoadContent();
-
         // TODO: use this.Content to load your game content here
     }
 
