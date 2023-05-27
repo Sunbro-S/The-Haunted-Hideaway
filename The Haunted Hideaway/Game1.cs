@@ -36,7 +36,6 @@ public class Game1 : Game
         map = new Map.Map();
         LoaderContent.Map = map;
         LoaderContent.Viewport = GraphicsDevice.Viewport;
-        LoaderContent.Initialize();
         // TODO: Add your initialization logic here
         base.Initialize();
     }

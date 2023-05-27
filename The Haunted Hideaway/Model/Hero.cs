@@ -185,16 +185,9 @@ public class Hero
           foreach (var tile in Map.CollisionTilesList)
           {
                if (Keyboard.GetState().IsKeyDown(Keys.LeftShift) && temp.Intersects(tile.Rectangle) && tile.Type==21)
-               {
                     return true;
-               }
           }
 
           return false;
-     }
-
-     public static void RegenerateHealth()
-     {
-          _health += 25;
      }
 }

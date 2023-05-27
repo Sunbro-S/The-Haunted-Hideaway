@@ -9,7 +9,7 @@ public class Camera
 {
     public Matrix Transform { get; set; }
     private Viewport Viewport;
-    private Hero player; // Добавлено: ссылка на игрока
+    private Hero player;
 
     public Camera(Viewport viewport, Hero player)
     {

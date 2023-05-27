@@ -17,7 +17,7 @@ public class AnimationManager
     public void Stop()
     {
         if (currentAnimation != null)
-            currentAnimation.Reset(); // Сбросить текущую анимацию в начальное состояние
+            currentAnimation.Reset();
     }
 
     public void Update(GameTime gameTime)
