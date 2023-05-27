@@ -20,6 +20,7 @@
       <Compile Remove="Creature.cs" />
       <Compile Remove="View\RectangleHelper.cs" />
       <Compile Remove="Managers\RectangleHelper.cs" />
+      <Compile Remove="Managers\DrawManager.cs" />
     </ItemGroup>
     <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
         <Message Text="Restoring dotnet tools" Importance="High" />
