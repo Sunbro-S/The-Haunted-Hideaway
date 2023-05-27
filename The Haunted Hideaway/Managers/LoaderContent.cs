@@ -25,7 +25,6 @@ public class LoaderContent
 
     public static void LoadContent()
     {
-        SplashScreen.Background = Globals.Content.Load<Texture2D>("background");
         hero = new Hero(LoadTexture("heroDown"),LoadTexture("heroUp"),LoadTexture("heroLeft"), LoadTexture("heroRight"),
             Globals.Content.Load<SoundEffect>("stepSound"),
             new Rectangle(128,257,50,50),100);
@@ -52,22 +51,6 @@ public class LoaderContent
         hero.Update(gameTime);
         jumpscareEffect.Update(gameTime, Camera.GetTransformMatrix());
         GhostsManager.Update(ghosts,gameTime,hero);
-        switch (state)
-        {
-            case GameState.Menu:
-                SplashScreen.Update();
-                if (Keyboard.GetState().IsKeyDown(Keys.Enter)) state = GameState.Game;
-                break;
-            case GameState.Game:
-                SplashScreen.Update();
-                if (Keyboard.GetState().IsKeyDown(Keys.Escape)) state = GameState.Game;
-                if (Keyboard.GetState().IsKeyDown(Keys.P)) state = GameState.Pause;
-                break;
-            case GameState.Pause:
-                if (Keyboard.GetState().IsKeyDown(Keys.Escape) || Keyboard.GetState().IsKeyDown(Keys.P))
-                    state = GameState.Game;
-                break;
-        }
     }
 
     public static void Draw()
