@@ -35,18 +35,16 @@ public class Animation
 
         if (timer >= frameDuration)
         {
-            // Переход к следующему кадру
             currentFrame++;
             if (currentFrame >= frameCount)
             {
-                currentFrame = 0; // Зацикливание анимации
+                currentFrame = 0;
             }
-
-            // Обновление прямоугольника источника для текущего кадра
-            int frameWidth = texture.Width / frameCount;
+            
+            var frameWidth = texture.Width / frameCount;
             sourceRect = new Rectangle(frameWidth * currentFrame, 0, frameWidth, texture.Height);
 
-            timer = 0f; // Сброс таймера
+            timer = 0f; 
         }
     }
 

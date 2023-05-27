@@ -17,23 +17,21 @@ public class AnimationManager
     public void Stop()
     {
         if (currentAnimation != null)
-            currentAnimation.Reset(); // Сбросить текущую анимацию в начальное состояние
+            currentAnimation.Reset();
     }
 
     public void Update(GameTime gameTime)
     {
         if (currentAnimation != null)
-        {
             currentAnimation.Update(gameTime);
-        }
+        
     }
 
     public void Draw(SpriteBatch spriteBatch, Vector2 position)
     {
         if (currentAnimation != null)
-        {
             currentAnimation.Draw(spriteBatch, position);
-        }
+        
     }
     
 }

@@ -25,6 +25,30 @@
 /processorParam:TextureFormat=Color
 /build:background.png;background
 
+#begin Exit.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Exit.png;Exit
+
+#begin ExitButton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ExitButton.png;ExitButton
+
 #begin ghost.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -156,6 +180,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:heroUp.png;heroUp
+
+#begin PlayButton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:PlayButton.png;PlayButton
 
 #begin PlayerDemo.jpg
 /importer:TextureImporter
@@ -337,6 +373,18 @@
 /processorParam:TextureFormat=Color
 /build:Tile20.png;Tile20
 
+#begin Tile21.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Tile21.png;Tile21
+
 #begin Tile3.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -420,4 +468,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Tile9.png;Tile9
+
+#begin TutorialButton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:TutorialButton.png;TutorialButton
 

@@ -12,7 +12,8 @@ public class Hero
      private Texture2D Texture { get; }
      private static Direction Direction { get; set; }
      private Rectangle rectangle;
-     private readonly int speed = 5; 
+     private static Rectangle temp;
+     private readonly int speed = 3; 
      
      public Camera Camera { get; set; }
      private static int _health;
@@ -25,6 +26,7 @@ public class Hero
      private Animation animationRight;
      private SoundEffect stepSound;
      private SoundEffectInstance stepSoundInstance;
+     private static Map.Map Map;
      private bool isMoving = false;
 
      public Hero(Texture2D down, Texture2D up,Texture2D left,Texture2D right,SoundEffect step,Rectangle rectangle, int health)
@@ -62,14 +64,13 @@ public class Hero
          
      }
 
-     public void Update(GameTime gameTime)
-     {
-          
-     }
+     public bool Intersects(Rectangle newRectangle) => rectangle.Intersects(newRectangle);
+     
      
      
      public void MoveDirection( Map.Map map)
      {
+          Map = map;
           var newPosition = rectangle.Location;
           Velocity = new Vector2(0,0);
 
@@ -95,12 +96,13 @@ public class Hero
           }
           
           var tempRectangle = new Rectangle(newPosition, rectangle.Size);
+          temp = tempRectangle;
           var collisionDetected = false;
 
           foreach (var tile in map.CollisionTilesList)
           {
                Camera.Update();
-               if (tempRectangle.Intersects(tile.Rectangle) && tile.Type != 1)
+               if (tempRectangle.Intersects(tile.Rectangle) && tile.Type != 1 && tile.Type!=21)
                {
                     collisionDetected = true;
                     break;
@@ -142,12 +144,8 @@ public class Hero
                isMoving = true;
           }
 
-          
           if (isMoving)
-          {
-               
                stepSoundInstance.Play();
-          }
           
           else
           {
@@ -170,24 +168,16 @@ public class Hero
      {
           _health -= amount;
           var flag = true;
-          if (_health <= 0)
-          {
-               //TODO: Что то после смерти
-          }
      }
 
      public static bool HideInShadow()
-     {
-          if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
+     {    
+          foreach (var tile in Map.CollisionTilesList)
           {
-               return true;
+               if (Keyboard.GetState().IsKeyDown(Keys.LeftShift) && temp.Intersects(tile.Rectangle) && tile.Type==21)
+                    return true;
           }
 
           return false;
-     }
-
-     public static void RegenerateHealth()
-     {
-          _health += 25;
      }
 }

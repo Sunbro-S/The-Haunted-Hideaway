@@ -6,17 +6,11 @@ using The_Haunted_Hideaway.Map;
 
 namespace The_Haunted_Hideaway;
 
-public enum GameState
-{   
-    Menu,
-    Game,
-    Pause
-}
+
 public class Game1 : Game
 {
     private GraphicsDeviceManager graphics;
     private SpriteBatch spriteBatch;
-    private GameState state = GameState.Menu;
     private Container container;
     private Map.Map map;
 
@@ -56,9 +50,10 @@ public class Game1 : Game
 
     protected override void Update(GameTime gameTime)
     {
-       LoaderContent.Update(gameTime, state);
-        // TODO: Add your update logic here
-        base.Update(gameTime);
+       LoaderContent.Update(gameTime);
+       if(LoaderContent.HeroTouchedExit())
+           Exit();
+       base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
