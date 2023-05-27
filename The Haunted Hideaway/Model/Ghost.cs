@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using The_Haunted_Hideaway;
@@ -10,22 +12,29 @@ public class Ghost
     private Texture2D Up;
     private Texture2D Left;
     private Texture2D Right;
+    private SoundEffect screamer;
+    private SoundEffectInstance screamerInstance;
     private Vector2 position;
     private Vector2 direction;
     private float speed;
     private float radius;
+
     private int damage;
     
-    public Ghost(Texture2D down,Texture2D up, Texture2D left,Texture2D right,Vector2 position, float speed, float radius, int damage)
+    public Ghost(Texture2D down,Texture2D up, Texture2D left,Texture2D right,SoundEffect scream,Vector2 position, float speed, float radius, int damage)
     {
         Down = down;
         Up = up;
         Left = left;
         Right = right;
+        screamer = scream;
+        screamerInstance = screamer.CreateInstance();
+        screamerInstance.Volume = 0.5f;
         this.position = position;
         this.speed = speed;
         this.radius = radius;
         this.damage = damage;
+
     }
     
     public void Update(GameTime gameTime, Hero hero)
@@ -41,6 +50,8 @@ public class Ghost
         if (IsIntersect(hero.position()))
         {
             hero.TakeDamage(25);
+            screamerInstance.Play();
+            Jumpscare.Activate();
         }
     }
 
@@ -56,13 +67,13 @@ public class Ghost
         spriteBatch.Draw(Down, position, Color.White);
         if(direction.X!=0 && direction.Y!=0)
         {
-            if (direction.X > 0 && direction.Y > direction.X)
+            if (direction.X > 0 && Math.Abs(direction.Y) < Math.Abs(direction.X))
                 spriteBatch.Draw(Right, position, Color.White);
-            else if (direction.X < 0 && direction.Y > direction.X)
+            else if (direction.X < 0 && Math.Abs(direction.Y) < Math.Abs(direction.X))
                 spriteBatch.Draw(Left, position, Color.White);
-            else if (direction.Y < 0)
+            else if (direction.Y < 0 && Math.Abs(direction.X) < Math.Abs(direction.Y))
                 spriteBatch.Draw(Up, position, Color.White);
-            else if (direction.Y > 0)
+            else if (direction.Y > 0 && Math.Abs(direction.X) < Math.Abs(direction.Y))
                 spriteBatch.Draw(Down, position, Color.White);
         }
     }

@@ -26,4 +26,7 @@ public class Camera
 
         Transform = Matrix.CreateTranslation(-playerOffset.X, -playerOffset.Y, 0);
     }
+    
+    public Matrix GetTransformMatrix() => Matrix.CreateTranslation(-player.position().X, -player.position().Y, 0);
+
 }
