@@ -12,6 +12,7 @@ public class Hero
      private Texture2D Texture { get; }
      private static Direction Direction { get; set; }
      private Rectangle rectangle;
+     private static Rectangle temp;
      private readonly int speed = 5; 
      
      public Camera Camera { get; set; }
@@ -25,6 +26,7 @@ public class Hero
      private Animation animationRight;
      private SoundEffect stepSound;
      private SoundEffectInstance stepSoundInstance;
+     private static Map.Map Map;
      private bool isMoving = false;
 
      public Hero(Texture2D down, Texture2D up,Texture2D left,Texture2D right,SoundEffect step,Rectangle rectangle, int health)
@@ -70,6 +72,7 @@ public class Hero
      
      public void MoveDirection( Map.Map map)
      {
+          Map = map;
           var newPosition = rectangle.Location;
           Velocity = new Vector2(0,0);
 
@@ -95,12 +98,13 @@ public class Hero
           }
           
           var tempRectangle = new Rectangle(newPosition, rectangle.Size);
+          temp = tempRectangle;
           var collisionDetected = false;
 
           foreach (var tile in map.CollisionTilesList)
           {
                Camera.Update();
-               if (tempRectangle.Intersects(tile.Rectangle) && tile.Type != 1)
+               if (tempRectangle.Intersects(tile.Rectangle) && tile.Type != 1 && tile.Type!=21)
                {
                     collisionDetected = true;
                     break;
@@ -177,10 +181,13 @@ public class Hero
      }
 
      public static bool HideInShadow()
-     {
-          if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
+     {    
+          foreach (var tile in Map.CollisionTilesList)
           {
-               return true;
+               if (Keyboard.GetState().IsKeyDown(Keys.LeftShift) && temp.Intersects(tile.Rectangle) && tile.Type==21)
+               {
+                    return true;
+               }
           }
 
           return false;
